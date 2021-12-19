@@ -1,0 +1,293 @@
+Bu kodu kullanmak için main java içindeki herşeyi silip bunu kopyalayın
+
+Bu kodda class yapısı kullanılmıştır.
+İçindekiler : 
+Açıklamalarla
+kaydırmalı kuyruk yapısı 
+dairesel kuyruk yapısı
+öncelikli kaydırmalı kuyruk yapısı.
+
+
+package com.company;
+//Class yapısını bilmek gerekiyor. Eğer bilmiyorsanız kodu çözmeniz zor olabilir.
+public class Main {//Fonksiyonları(classları) test ederken bazı private komutları silmeniz gerekbilir aksi halde break point uyguladığınızda o class ın içindeki diziyi göremezsiniz./Nerdere ne oluyor canlı canlı görmek için breakpoint kullanmanız lazım.
+    public static void main(String[] args) {
+        //Kuyruk kuyruk = new Kuyruk(5);
+        //kuyruk.enqueue(20);
+        //kuyruk.enqueue(15);
+        //kuyruk.dequeue();
+        //kuyruk.enqueue(20);
+        //kuyruk.enqueue(80);
+        //kuyruk.enqueue(26);
+        //kuyruk.enqueue(27);
+        //kuyruk.enqueue(30);//Kuyruk dolu mesajı bekliyorum.
+        //kuyruk.clear();//tüm elemanlar silindi
+        //kuyruk.dequeue();//Kuyruk boş hatası gelmesi lazım
+        //Ben test ettiğimde sorun çıkmadı.
+        //DaireselKuyruk daireselKuyruk = new DaireselKuyruk(5);
+        //daireselKuyruk.enqueue(1);
+        //daireselKuyruk.enqueue(2);
+        //daireselKuyruk.enqueue(3);
+        //daireselKuyruk.dequeue();
+        //daireselKuyruk.enqueue(4);
+        //daireselKuyruk.enqueue(5);
+        //daireselKuyruk.enqueue(6);
+        //daireselKuyruk.enqueue(7);//Bu satır için hata almamız lazım
+        //daireselKuyruk.clear();
+        //daireselKuyruk.dequeue();//Bu satırdada hata almamız lazım
+        //Ben test ettiğimde sorun çıkmadı.
+        //PriorityKuyruk priorityKuyruk = new PriorityKuyruk(5);
+        //priorityKuyruk.enqueue(20);
+        //priorityKuyruk.enqueue(10);
+        //priorityKuyruk.dequeue();
+        //priorityKuyruk.enqueue(30);
+        //priorityKuyruk.enqueue(40);
+        //priorityKuyruk.enqueue(8);
+        //priorityKuyruk.enqueue(11);
+        //priorityKuyruk.enqueue(20);//bu satır için hata almamız lazım
+        //priorityKuyruk.clear();
+        //priorityKuyruk.dequeue();//Hata almamız lazım
+        //priorityKuyruk.enqueue(80);
+        //Ben test ettiğimde sorun çıkmadı.
+    }
+
+
+}
+
+class Kuyruk {//Düz(lineer) kuyruk //Kaydırmalı
+    private int[] kuyruk;//private olmazsa dizi haline erişilebilir yani kuyruk yapısının anlamı kalmaz.//ama test aşamasında breakpointlerle bu diziyi görmek için private ın silinmesi gerek.
+    private int on = -1, arka = -1, elemanSay = 0;//private olmazsa dışarıdan erişilebilir. Bunu istemeyiz.//
+
+    Kuyruk(Integer kuyrukBoyutu) {
+        kuyruk = new int[kuyrukBoyutu];
+        for (int i = 0; i < kuyrukBoyutu; i++) {
+            kuyruk[i] = -1;
+        }
+        ;//null atayamıyorum. ya bilmediğim bişey var yada javanın sorunu bu.
+    }
+
+    void enqueue(int sayi) {
+        if (isEmpty()) {
+            on++;
+            arka++;
+            kuyruk[arka] = sayi;
+            elemanSay++;
+        } else {
+            if (!isFull()) {
+                if (arka == kuyruk.length - 1) {//kuyruğumuzun arkası en son indise ulaştıysa tüm elemanları öne kaydırıyoruz. Üstte dolu olmadığını kontrol etmiştik
+                    for (int i = 0; i < elemanSay; i++) {
+                        kuyruk[i] = kuyruk[i + on];
+                    }
+                    arka -= on;
+                    on = 0;
+                }
+                arka++;
+                kuyruk[arka] = sayi;
+                elemanSay++;
+            } else {
+                System.out.println("İşlem gerçekleştirilemedi. Kuyruk dolu!!!");
+            }
+        }
+
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            System.out.println("İşlem gerçekleştireilemedi. Kuyruk zaten boş.");
+        } else {
+            kuyruk[on] = -1;//javada null sorunu ?//c# ta null kullanılabilir.
+            on++;
+            elemanSay--;
+        }
+    }
+
+    String peek() {
+        if (isEmpty()) {
+            return "Kuyrukta eleman yok!!!";
+        } else {
+            return String.valueOf(kuyruk[on]);
+        }
+    }
+
+    Boolean isFull() {
+        if (elemanSay == kuyruk.length) return true;
+        else return false;
+    }
+
+    Boolean isEmpty() {
+        if (elemanSay == 0) return true;
+        else return false;
+    }
+
+    void clear() {
+        int ydk = elemanSay;//eğer direkt elemanSay ı kullanırsak elemanSay her silme işleminde azalacağı için döngü de soruna yol açacaktır.//yedek kullanmak iyi bir seçim olabilir.
+        for (int i = 0; i < ydk; i++) {//misal 3 eleman silinecek olsun . i=0 için siler ve elemanSay silme sonucu 2 ye düşer.i = 1 için siler elemanSay silme sonucu 1 e düşer. i = 2 (normalde silmemiz gerek)için silemez çünkü elemanSay her silme işleminde değiştiği için.
+            dequeue();
+        }
+        on = arka =-1;//indisler saçma yerlerde kalabilir belki sorun yaratmayabilir ama büyük bir ihtimalle yaratır  maceraya gerek yok resetleyelim gitsin.
+    }
+}
+
+class DaireselKuyruk {//Dairesel kuyruğun çalışma mantığını bilmiyorsanız bu kodu tam anlamıyla çözemeyebilirsiniz.
+    private int[] dKuyruk;
+    private int on = -1, arka = -1, elemanSay = 0;
+
+    DaireselKuyruk(int kuyrukBoyutu) {
+        dKuyruk = new int[kuyrukBoyutu];
+        for (int i = 0; i < dKuyruk.length; i++) {
+            dKuyruk[i] = -1;//null atayamıyorum. Herzamanki gibi. Ama herhangi bir sorun yaratmaz bu.
+        }
+    }
+
+    void enqueue(int sayi) {
+        if (isEmpty()) {
+            arka++;
+            on++;
+            dKuyruk[arka] = sayi;
+            elemanSay++;
+        } else {
+            if (isFull()) {
+                System.out.println("İşlem gerçekleştirilemedi. Kuyruk dolu!!!");
+            } else {
+                arka++;
+                arka %= dKuyruk.length;//eğer arka indis dizinin boyutunu aşarsa indisi başa(0.indis e) çekiyoruz. dizimizde yer olduğundan zaten eminiz.
+                dKuyruk[arka] = sayi;
+                elemanSay++;
+            }
+        }
+    }
+
+    void dequeue() {
+        if (!isEmpty()) {
+            dKuyruk[on] = -1;//null yapabilsek daha hoş olurdu. Ama sorun yok.
+            on++;
+            on %= dKuyruk.length; //yapılan işlemler sonrası kuyruğun önü en arkaya geçerse silerken indisi 0 a çekmek gerekiyor aksi halde ön, dizinin boyutunun dışına çıkar.
+            elemanSay--;
+        } else {
+            System.out.println("Kuyrukta eleman yok.");
+        }
+
+
+    }
+
+    String peek() {
+        if (isEmpty()) {
+            return "Kuyrukta eleman yok!!!";
+        } else {
+            return String.valueOf(dKuyruk[on]);
+        }
+    }
+
+    Boolean isFull() {
+        if (elemanSay == dKuyruk.length) return true;
+        else return false;
+    }
+
+    Boolean isEmpty() {
+        if (elemanSay == 0) return true;
+        else return false;
+    }
+
+    void clear() {
+        int esa = elemanSay;
+        for (int i = 0; i < esa; i++) {
+            dequeue();
+        }
+        on = arka = -1;//Bu satırın gerekliliğinden tam olarak emin değilim.// dequeue sırasında ön ve arka saçma bi indiste kalabilir(?).
+    }
+}
+
+class PriorityKuyruk {//neredeyse aynı düz kuyrukla. bu yüzden üsttekini kopyalayıp bazı değişiklikler yapacağım.
+    private int[] kuyruk;//private olmazsa dizi haline erişilebilir yani kuyruk yapısının anlamı kalmaz.//ama test aşamasında breakpointlerle bu diziyi görmek için private ın silinmesi gerek.
+    private int on = -1, arka = -1, elemanSay = 0;//private olmazsa dışarıdan erişilebilir. Bunu istemeyiz.//
+
+    private Boolean oneAlincakmi(int sayi) {//BU KISIM YENİ//Bu fonksiyonu değiştirip neye göre öncelikli olması gerektiğini ayarlayabilirsiniz.
+        if (sayi < 10) return true;//Öne alınma koşulu
+        else return false;
+    }
+
+    PriorityKuyruk(Integer kuyrukBoyutu) {
+        kuyruk = new int[kuyrukBoyutu];
+        for (int i = 0; i < kuyrukBoyutu; i++) {
+            kuyruk[i] = -1;//null atayamıyorum. ya bilmediğim bişey var yada javanın sorunu bu.
+
+        }
+    }
+
+    void enqueue(int sayi) {
+        if (isEmpty()) {//boş haline extra bakmamın sebebi boşken değer eklendiğinde on değişkeninin 0 olmasını sağlamaktır. normalde (kuyruk/dizi boş değilken)eleman eklediğimizde on değişkeni değeri artmaz.
+            on++;
+            arka++;
+            kuyruk[arka] = sayi;
+            elemanSay++;
+        } else {
+            if (!isFull()) {
+                if (arka == kuyruk.length - 1) {//kuyruğumuzun arkası en son indise ulaştıysa tüm elemanları öne kaydırıyoruz. Üstte dolu olmadığını kontrol etmiştik
+                    for (int i = 0; i < elemanSay; i++) {
+                        kuyruk[i] = kuyruk[i + on];
+                    }
+                    arka -= on;//arka indiste ön indis kadar öne kayacak sonuçta.eğer bu işlemi yapmazsak kuyruk tam dolu gibi olur.
+                    on = 0;// zaten amacımız ön indisi 0 yapmaktı .
+                }
+                arka++;
+                //BURADAN
+                kuyruk[arka] = sayi;
+                if (oneAlincakmi(kuyruk[arka])) {//eklenen son elemanın öne gitmesi gerekiyorsa götürelim.
+                    int oneAlinmasıGerekenIndis = arka;
+                    for (int i = arka-1; i >= on; i--) {//kendinden önceki ilk elemandan ilk elemana kadar bakmamız lazım.
+                        if (oneAlincakmi(kuyruk[i]))
+                            break;//eğer kendinden önceki elemanda öne alınması gereken bir elemansa zaten doğru yerde demektir.
+                        else {//yer değiştirme işlemi yaparsak sayımızın hangi indiste olduğunu bilmemiz lazım. bunuda yukarıdaki oneAlinmasıGerekenIndis değerinde tutuyoruz burada onu değiştirebiliriz
+                            int temp = kuyruk[i];//bizim elemanı i. indise atacağımız için o indisteki veriyi geçici olarak saklamamız gerek.
+                            kuyruk[i] = kuyruk[oneAlinmasıGerekenIndis];
+                            kuyruk[i + 1] = temp;//bizim eleman herzaman bir önde olmalı eğer değişim gerekiyorsa
+                            oneAlinmasıGerekenIndis = i;//artık one gitmesi gereken sayının indisi değişti.
+                        }
+                    }
+                }
+                //BURAYA KADAR YENİ
+                elemanSay++;
+            } else {
+                System.out.println("İşlem gerçekleştirilemedi. Kuyruk dolu!!!");
+            }
+        }
+
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            System.out.println("İşlem gerçekleştireilemedi. Kuyruk zaten boş.");
+        } else {
+            kuyruk[on] = -1;//javada null sorunu ?//c# ta null kullanılabilir.
+            on++;
+            elemanSay--;
+        }
+    }
+
+    String peek() {
+        if (isEmpty()) {
+            return "Kuyrukta eleman yok!!!";
+        } else {
+            return String.valueOf(kuyruk[on]);
+        }
+    }
+
+    Boolean isFull() {
+        if (elemanSay == kuyruk.length) return true;
+        else return false;
+    }
+
+    Boolean isEmpty() {
+        if (elemanSay == 0) return true;
+        else return false;
+    }
+
+    void clear() {
+        int ydk = elemanSay;//eğer direkt elemanSay ı kullanırsak elemanSay her silme işleminde azalacağı için döngü de soruna yol açacaktır.//yedek kullanmak iyi bir seçim olabilir.
+        for (int i = 0; i < ydk; i++) {//misal 3 eleman silinecek olsun . i=0 için siler ve elemanSay silme sonucu 2 ye düşer.i = 1 için siler elemanSay silme sonucu 1 e düşer. i = 2 (normalde silmemiz gerek)için silemez çünkü elemanSay her silme işleminde değiştiği için.
+            dequeue();
+        }
+        on =-1;arka = -1;//indisler saçma yerlerde kalabilir belki sorun yaratmayabilir.Ama maceraya gerek yok.
+    }
+
+}
