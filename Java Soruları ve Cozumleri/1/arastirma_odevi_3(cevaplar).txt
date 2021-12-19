@@ -1,0 +1,295 @@
+1>  Scanner scr = new Scanner(System.in);
+        int sayi1,sayi2,aralik;
+        System.out.print("Sayı Girin : ");
+        sayi1 = scr.nextInt();
+        System.out.print("Sayı Girin : ");
+        sayi2 = scr.nextInt();
+        System.out.print("Aralık Girin : ");
+        aralik = scr.nextInt();
+        int max,min;
+        if(sayi1<sayi2) {
+            max = sayi2;
+            min = sayi1;
+        }
+        else {
+            max = sayi1;
+            min = sayi2;
+        }
+        int toplam =0;
+        for(int i = min;i<=max;i+=aralik){
+            toplam += i;
+        }
+        System.out.print("Sonuç : "+toplam);
+
+2> public static void main(String[] args) {
+        System.out.println("<<----------------------------->>");
+        System.out.println("<<--------Harshad Sayılar------>>");
+
+        for (int i =1,j=1;i<1000;i++){
+            if(Bolunurmu(i,BasamakToplami(i))){
+                System.out.println("<<"+j +" ->           "+i+"            >>");
+                j++;
+            }
+        }
+    }
+    public static boolean Bolunurmu(int i,int j){
+        if(i%j == 0) return  true;
+        else return false;
+    }
+    public static int BasamakToplami(int sayi){
+        int basTop = 0;
+        for (int i =10;sayi >= 1 ;){
+            basTop += sayi%i;
+            sayi /=10;
+        }
+        return basTop;
+    }
+
+3 >  int terimSayisi = 2, toplam = 0;
+        for (int i = 1; i <= terimSayisi*2; i+=2) {
+                toplam += i*(i+1);
+        }
+        System.out.print("Sonuç = "+toplam);
+
+4 > double artis = 1.35;
+       int nufus = 79814871,toplamNufus = nufus;
+       int yil = 1;
+       for(;toplamNufus<100000000;yil++){
+           toplamNufus += toplamNufus*artis/100;
+       }
+       System.out.print("Türkiye "+(yil)+" yıl sonra 100000000 nüfusu geçecektir.");
+
+5 > while(true){
+           System.out.println("Dünya Barışı");
+       }
+
+6.1 >  public static void main(String[] args) {
+        int j =0;
+        for(int i =100;i<1000;i++){
+            if(!BasamaklarAynimi(i)){
+                System.out.println("--------------   "+i+"   --------------");
+                j++;
+            }
+        }
+        System.out.println("-------------------------------------");
+       System.out.print("----Toplam "+ j+" adet sayı bulundu.----");
+    }
+    public static boolean BasamaklarAynimi(int sayi){
+        int bas1,bas2,bas3;
+        bas1 = sayi%10;
+        sayi /=10;
+        bas2 = sayi%10;
+        sayi /=10;
+        bas3 = sayi;
+        if(bas1 == bas2||bas1 == bas3||bas2==bas3)return true;
+        else return  false;
+    }
+
+6.2 > int sayac =0;
+        for(int i =1; i<=9;i++){
+        for(int j = 0;j<=9;j++){
+            for (int k = 0;k<=9;k++){
+                if(i!=j)
+                {
+                    if(i!=k){
+                        if(j!=k){
+                            System.out.println(i+""+j+""+k);
+                            sayac ++;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(sayac + " adet sayı bulundu.");
+
+6.3 > int[] dizi = new int[900];
+        for(int i =100;i<999;i++){
+            dizi[i-100] = i;
+        }
+        for(int i =0;i<900;i++){
+            if(dizi[i]%10 == (dizi[i]/10)%10 || dizi[i]%10 == (dizi[i]/100)%10||(dizi[i]/10)%10 == (dizi[i]/100)%10){
+                dizi[i] =0;
+            }
+        }
+        int sayac =0;
+        for(int i =0;i<900;i++){
+            if(dizi[i]!=0){
+                System.out.println(dizi[i]);
+                sayac++;
+            }
+        }
+        System.out.println("--------------------------------------");
+        System.out.println(sayac +" Adet sayı bulundu.");
+
+7 >  int elemanSayisi;
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Sayı Giriniz : ");
+        elemanSayisi = scn.nextInt();
+        System.out.println("");
+        int[] dizi = new int[elemanSayisi];
+        for(int i =1,j=0;i<=elemanSayisi;i+=2,j++){
+            dizi[j] = i;
+        }
+        for(int i =2,j=elemanSayisi-1;i<=elemanSayisi;i+=2,j--){
+            dizi[j] = i;
+        }
+        System.out.print(Arrays.toString(dizi));
+
+8  > public static void main(String[] args) {
+        int[] dizi = new int[10];
+        Random uretici = new Random();
+        for(int i =0;i< dizi.length;i++){
+            dizi[i] = uretici.nextInt(25)+5;
+        }
+        System.out.println(Arrays.toString(dizi));
+        System.out.println("En Büyük Sayı : "+dizi[HangiIndextekilerMax(dizi)[0]]);
+        System.out.println("En büyük sayıdan dizide "+HangiIndextekilerMax(dizi).length+" adet var.");
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("-----------------En Büyük Sayı(lar)ın İndex Listesi----------------");
+        for(int i =0;i<HangiIndextekilerMax(dizi).length;i++){
+            System.out.println((i+1)+". Adres ==>              "+HangiIndextekilerMax(dizi)[i]);
+        }
+
+    }
+    public static int[] HangiIndextekilerMax( int[] dizi) {
+        int max = dizi[0],elemanSayisi = 0;
+        for(int i=1;i<dizi.length;i++){
+            if(dizi[i]>max) max = dizi[i];
+        }
+        for (int i =0,j=0;i< dizi.length;i++){
+            if(max == dizi[i]) elemanSayisi++;
+        }
+        int[] maxIndexler = new int[elemanSayisi];
+
+        for (int i =0,j=0;i< dizi.length;i++){
+            if(max == dizi[i]){
+                maxIndexler[j] = i;
+                j++;
+            }
+        }
+        return  maxIndexler;
+    }
+
+9 > public static void main(String[] args) {
+        String email,son;
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Mail Adresi : ");
+        email = scn.next();
+        String parts[] = email.split("@");
+        String isimSoyXSon[] = email.split("\\.");
+        if (isimSoyXSon.length == 3) {
+            if (isimSoyXSon[2].equals("com")) {
+                String soyX[] = isimSoyXSon[1].split("\\@");
+                if (soyX.length == 2) {
+                    System.out.println("Mail Adresi Doğrulandı");
+                } else HataMesajiVer();
+            } else HataMesajiVer();
+        } else HataMesajiVer();
+    }
+
+    static void HataMesajiVer() {
+        System.out.println("Hatalı eposta adresi girdiniz.");
+    }
+
+10 > int saat,kolaAdedi,cayAdedi,odenecekTutar = 0,saatlikUcret =0;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Kaç Saat Oturacaksınız : ");
+        saat = scanner.nextInt();
+        System.out.print("Kaç Kola içeceksiniz : ");
+        kolaAdedi = scanner.nextInt();
+        System.out.print("Kaç Çay İçeceksiniz : ");
+        cayAdedi = scanner.nextInt();
+        
+        if(saat>=5){
+            saatlikUcret =3;
+
+        }
+        else if(saat<=4&saat>=2){
+            saatlikUcret = 4;
+
+        }
+        else if(saat == 1){
+            saatlikUcret =5;
+        }
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("Saat : "+saat+" Kola Adedi : "+kolaAdedi+" Çay Adedi : "+cayAdedi);
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------");
+        kolaAdedi -= (kolaAdedi/3);
+        System.out.println((kolaAdedi/3) +" Adet kola indirimi uygulandı.");
+        if(saat>3){
+            cayAdedi -= saat-3;
+            System.out.println((saat-3) +" Adet çay indirimi uygulandı.");
+        }
+        if(cayAdedi<0) cayAdedi=0;
+        odenecekTutar = saat*saatlikUcret + kolaAdedi*2+cayAdedi;
+        System.out.println("-----------------------İNDİRİMLİ FATURA-------------------------");
+        System.out.println("Saat : "+saat+" Kola Adedi : "+kolaAdedi+" Çay Adedi : "+cayAdedi);
+        System.out.println("Ödenecek Tutar = "+odenecekTutar);
+
+11 > int aracAdedi = 5, ayAdedi = 3;
+        String[][][] tablo;
+        tablo = new String[][][]{{{"fiat", "ocak", "700"}, {"fiat", "şubat", "600"}, {"fiat", "mart", "650"}}, {{"renault", "ocak", "900"}, {"renault", "şubat", "800"}, {"renault", "mart", "700"}}, {{"VW", "ocak", "300"}, {"VW", "şubat", "400"}, {"VW", "mart", "350"}}, {{"Opel", "ocak", "500"}, {"Opel", "şubat", "450"}, {"Opel", "mart", "470"}}, {{"Ford", "ocak", "600"}, {"Ford", "şubat", "500"}, {"Ford", "mart", "480"}}};
+        //11.1
+        for (int i = 0; i < aracAdedi; i++) {
+            for (int j = 0, sayac = 0; j < ayAdedi; j++, sayac++) {
+                System.out.print(tablo[i][j][2] + "          ");
+                if (sayac == 2) System.out.println();
+            }
+        }
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+        
+        //11.2
+        for (int i = 0, toplamSatis = 0; i < aracAdedi; i++) {
+            System.out.print(tablo[i][0][0]);
+            for (int j = 0; j < ayAdedi; j++) {
+                toplamSatis += Integer.parseInt(tablo[i][j][2]);
+            }
+            System.out.println("------------------->" + toplamSatis);
+        }
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+
+        //11.3
+        for (int i = 0, maxSatisAyiIndex = 0; i < aracAdedi; i++) {
+            System.out.print(tablo[i][0][0]);
+            for (int j = 0; j < ayAdedi; j++) {
+                if (Integer.parseInt(tablo[i][maxSatisAyiIndex][2]) < Integer.parseInt(tablo[i][j][2])) {
+                    maxSatisAyiIndex = j;
+                }
+            }
+            System.out.println("------------------->" + tablo[i][maxSatisAyiIndex][1]);
+
+        }
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+
+        //11.4
+        for (int i = 0, maxSatilanAracIndexi = 0; i < ayAdedi; i++) {
+            System.out.print(tablo[0][i][1]);
+            for (int j = 0; j < aracAdedi; j++) {
+                if (Integer.parseInt(tablo[maxSatilanAracIndexi][i][2]) < Integer.parseInt(tablo[j][i][2])) {
+                    maxSatilanAracIndexi = j;
+                }
+            }
+            System.out.println("---------------------------->"+tablo[maxSatilanAracIndexi][0][0]);
+
+        }
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+        System.out.println("------------------------------------------------");
+
+        //11.5
+        int toplam =0;
+        for(int i =0;i<aracAdedi;i++){
+            for(int j = 0;j<ayAdedi;j++){
+                toplam+= Integer.parseInt(tablo[i][j][2]);
+            }
+        }
+        System.out.println("Toplam Satış : "+toplam);

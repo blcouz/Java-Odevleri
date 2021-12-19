@@ -1,0 +1,142 @@
+1 >>  
+
+Scanner scn = new Scanner(System.in);
+        System.out.print("Hız : ");
+        double hiz = scn.nextDouble();
+        System.out.print("Saniye : ");
+        int saniye = scn.nextInt();
+        double toplamAlinanYol=0;
+        for (int i = 0; i < saniye; i++) {
+            toplamAlinanYol = hiz*(i+1);
+            System.out.println((i+1)+". Saniyeye kadar Toplam Alınan Yol :  "+(int)toplamAlinanYol);
+            hiz += hiz/5;
+        }
+
+
+2 >>  
+
+Scanner scn = new Scanner(System.in);
+        System.out.print("Cümle giriniz : " );
+        String cumle = scn.next();
+        System.out.println();
+        String[] kelimeler = cumle.split(" ");
+        for (int i = 0; i < kelimeler.length; i++) {
+            for (int j = 0; j < kelimeler.length; j++) {
+                if ((kelimeler[i].toLowerCase().equals(kelimeler[j].toLowerCase()) && (i != j))) {
+                    kelimeler[j] = "";
+                }
+            }
+        }
+        System.out.println("Toplam kelime sayısı : "+kelimeler.length);
+        System.out.println();
+        System.out.println();
+        System.out.println("----------  Bulunan Kelimeler -----------");
+        for (int i = 0; i < kelimeler.length; i++) {
+            if (kelimeler[i].length() != 0) {
+                System.out.println("               " + kelimeler[i]+"");
+            }
+        }
+        System.out.println();
+
+3 >>  
+
+
+int[] x = new int[5], y = new int[5];
+        double[] z = new double[5];
+        Random uretici = new Random();
+        for (int i = 0; i < 5; i++) {
+            x[i] = uretici.nextInt(11)+12;
+            y[i] = uretici.nextInt(11)+12;
+        }
+        double xOrtalama = Arrays.stream(x).sum()/5;
+        for (int i = 0; i < 5; i++) {
+            z[i] = y[i]*xOrtalama;
+        }
+        System.out.println("X[] :  "+Arrays.toString(x));
+        System.out.println("Y[] :  "+Arrays.toString(y));
+        System.out.println("Z[] :  "+Arrays.toString(z));
+
+
+4  >>
+
+
+
+double yukseklik = 3;
+        int ziplamaAdedi =0;
+        double toplamAlinanyol = 0;
+        for (int i = 0;; i++) {
+            toplamAlinanyol +=yukseklik*4/5 +yukseklik ;//String formatter çok uzun olan double sayısını kırpıyor. eğer onu kullanmasam  çıktılar şu şekilde olur "4. zıplama -> 1,644000005 mt.(Toplam : 21.254400000000004 mt )
+            System.out.println((i+1)+". zıplama -> "+String.format("%.3f",(yukseklik*4/5))+" mt."+"("+"Toplam : "+String.format("%.2f",toplamAlinanyol)+" mt )");
+            if(toplamAlinanyol>20||(yukseklik*4/5==0)) break;
+            ziplamaAdedi++;
+            yukseklik *=(double) 4/5;
+
+        }
+
+
+5 >>  
+
+boolean kelimeninSagimi;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Kelime : ");
+        String kelime = scanner.next();
+        System.out.println();
+        System.out.print("Kaç birim kaydırma yapılacak : ");
+        int kacHarfKayacak = scanner.nextInt();
+        System.out.println();
+        System.out.print("Sağa doğru kaydırma için 'sağ' sola doğru kaydırma için 'sol' yazınız : ");
+        if(scanner.next().toLowerCase().equals("sağ"))  kelimeninSagimi = true;
+        else kelimeninSagimi = false;//else if ile de yapılabilirdi . kullanıcının şuan sağ harici bişey yazması solu seçtiği manasına geliyor.
+        System.out.println();
+        if (kacHarfKayacak > kelime.length()) kacHarfKayacak %= kelime.length();
+        String kelimeninSagi = "", kelimeninSolu = "";
+        if (kelimeninSagimi) {
+            for (int i = kelime.length() - kacHarfKayacak; i < kelime.length(); i++) {
+                kelimeninSagi += kelime.charAt(i);
+            }
+            for (int i = 0; i < kelime.length() - kacHarfKayacak; i++) {
+                kelimeninSolu += kelime.charAt(i);
+            }
+        }
+        else{
+            for (int i = kacHarfKayacak; i < kelime.length(); i++) {
+                kelimeninSagi += kelime.charAt(i);
+            }
+            for (int i = 0; i < kacHarfKayacak; i++) {
+                kelimeninSolu += kelime.charAt(i);
+            }
+        }
+        System.out.println(kelimeninSagi + kelimeninSolu);
+
+
+
+6 >>
+
+int istenilenPara = 795;
+        System.out.print(istenilenPara+" TL -> ");
+        int[] paralar = {5,10,20,50,100,200};
+        int[] paraAdetleri = {0,0,0,0,0,0};
+        int adet =0;
+        for (int i = paralar.length-1; i >=0 ; i--) {
+            if(istenilenPara-paralar[i]>=0){
+                istenilenPara -= paralar[i];
+                paraAdetleri[i] += 1;
+                adet++;
+                i++;
+            }
+        }
+        int toplamParaAdedi =0;
+        for (int i = 0; i < paraAdetleri.length; i++) {
+            toplamParaAdedi += paraAdetleri[i];
+        }
+        System.out.print(toplamParaAdedi+" adet ( ");
+        for (int i = paralar.length -1; i >=0; i--) {
+            if(paraAdetleri[i]!=0){
+                System.out.print(paraAdetleri[i]+"x"+paralar[i]);
+                if(i>0) System.out.print(" + ");
+            }
+        }
+        System.out.print(" )");
+
+
+

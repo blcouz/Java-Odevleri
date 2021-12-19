@@ -1,0 +1,262 @@
+1 > 
+
+public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int sayi1,sayi2,sayi1BolenToplam=0,sayi2BolenToplam=0;
+        System.out.print("Birinci sayıyı girniz : ");
+        sayi1 = scn.nextInt();
+        System.out.println();
+        System.out.print("İkinci sayıyı girniz : ");
+        sayi2 = scn.nextInt();
+        System.out.println();
+        for(int i = 1;i<=sayi1;i++){
+            if(Bolermi(sayi1,i)) sayi1BolenToplam+=i;
+        }
+        for(int i = 1;i<=sayi2;i++){
+            if(Bolermi(sayi2,i)) sayi2BolenToplam+=i;
+        }
+        System.out.print("\n\n"+sayi1 +" ile "+sayi2 +" dost sayı");
+        if(sayi1BolenToplam==sayi2BolenToplam) System.out.print("dır");
+        else System.out.print(" değildir");
+
+
+    }
+    public static Boolean Bolermi(int sayi,int bolen){
+        if(sayi%bolen == 0) return true;
+        else return false;
+    }
+
+
+
+2 >   
+//Niven Sayısı Harshad Sayısı demekmiş.
+public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int sayi1, sayi2;
+        System.out.print("Birinci sayıyı giriniz : ");
+        sayi1 = scn.nextInt();
+        System.out.println();
+        System.out.print("İkinci sayıyı giriniz : ");
+        sayi2 = scn.nextInt();
+        System.out.println();
+        if (DostSayiMi(sayi1, sayi2) & NivenSayiMi(sayi1) & NivenSayiMi(sayi2)) {
+            System.out.print("Dolayısıyla , ");
+            System.out.println("Bu sayılar Dost Niven Sayısıdır.");
+        } else {
+            System.out.print("Dolayısıyla , ");
+            System.out.println("Bu sayılar Dost Niven Sayısı değildir.");
+        }
+
+
+    }
+
+    public static Boolean DostSayiMi(int sayi1, int sayi2) {
+        int sayi1BolenToplam = 0, sayi2BolenToplam = 0;
+        for (int i = 1; i <= sayi1; i++) {
+            if (Bolermi(sayi1, i)) sayi1BolenToplam += i;
+        }
+        for (int i = 1; i <= sayi2; i++) {
+            if (Bolermi(sayi2, i)) sayi2BolenToplam += i;
+        }
+        if (sayi1BolenToplam == sayi2BolenToplam) {
+            System.out.println("Bu sayılar dost sayıdır.");
+            System.out.println("------------------------");
+            return true;
+        } else {
+            System.out.println("Bu sayılar dost sayı değildir.");
+            System.out.println("------------------------");
+            return false;
+        }
+    }
+
+    public static Boolean Bolermi(int sayi, int bolen) {
+        if (sayi % bolen == 0) return true;
+        else return false;
+    }
+
+    public static Boolean NivenSayiMi(int sayi) {
+        if (Bolunurmu(sayi, BasamakToplami(sayi))) {
+            System.out.println(sayi + " Niven sayıdır.");
+            System.out.println("------------------------");
+            return true;
+        } else {
+            System.out.println(sayi + " Niven sayı değildir.");
+            System.out.println("------------------------");
+            return false;
+        }
+    }
+
+    public static boolean Bolunurmu(int i, int j) {
+        if (i % j == 0) return true;
+        else return false;
+    }
+
+    public static int BasamakToplami(int sayi) {
+        int basTop = 0;
+        for (int i = 10; sayi >= 1; ) {
+            basTop += sayi % i;
+            sayi /= 10;
+        }
+        return basTop;
+    }
+
+
+3  >
+
+public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int sayi1, sayi2, max, min;
+        System.out.print("Birinci sayıyı girniz : ");
+        sayi1 = scn.nextInt();
+        System.out.println();
+        System.out.print("İkinci sayıyı girniz : ");
+        System.out.println("\n\n");
+        sayi2 = scn.nextInt();
+
+        if (sayi1 <= sayi2) {
+            min = sayi1;
+            max = sayi2;
+        }
+        else {
+            max = sayi1;
+            min = sayi2;
+        }
+        for(int i = min;i<=max;i++){
+            if(AsalMi(i)) System.out.print(i+"  ");
+        }
+
+    }
+    public static Boolean AsalMi(int sayi){
+        boolean asalmi = true;
+        for(int i = 2;i<sayi;i++){
+            if(sayi%i==0){
+                asalmi = false;
+                break;
+            }
+        }
+        return asalmi;
+    }
+
+
+4 >  
+
+
+public static void main(String[] args) {
+        int sayi1;
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Sayıyı giriniz : ");
+        sayi1 = scn.nextInt();
+        System.out.println();
+        if(sayi1<=1) {
+            System.out.println("Hatalı veri girişi..");
+            System.exit(0);//try catch ile de yapılabilirdi.
+        }
+        for (int i = sayi1 - 1; i > 1; i--) {
+            if (AsalMi(i)) {
+                System.out.println(sayi1 + " sayısından küçük en büyük asal sayı : " + i);
+                break;
+            }
+
+        }
+
+    }
+
+    public static Boolean AsalMi(int sayi) {
+        boolean asalmi = true;
+        for (int i = 2; i < sayi; i++) {
+            if (sayi % i == 0) {
+                asalmi = false;
+                break;
+            }
+        }
+        return asalmi;
+    }
+
+
+5 > 
+
+
+public static void main(String[] args) {
+        int sayi1;
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Sayı giriniz : ");
+        sayi1 = scn.nextInt();
+        System.out.println();
+
+        for(int i = 2,sayac = 1;;i++){
+            if(AsalMi(i)){
+                sayac++;
+                if (sayac== sayi1){
+                    System.out.println(sayi1 + ". asal sayı : "+i);
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public static Boolean AsalMi(int sayi) {
+        boolean asalmi = true;
+        for (int i = 2; i < sayi; i++) {
+            if (sayi % i == 0) {
+                asalmi = false;
+                break;
+            }
+        }
+        return asalmi;
+    }
+
+
+
+
+6 > 
+
+public static void main(String[] args) {
+        System.out.println("<<----------------------------->>");
+        System.out.println("<<--------Smith Sayılar------>>");
+        for (int i = 1,j = 1; i <= 10000; i++) {
+            if((!AsalMi(i))&(BasamakToplami(i) == AsalCarpanlarRakamlariToplami(i))){
+                System.out.println("<<"+j +" ->           "+i+"            >>");
+                j++;
+            }
+        }
+    }
+
+    public static Boolean AsalMi(int sayi) {
+        boolean asalmi = true;
+        for (int i = 2; i < sayi; i++) {
+            if (sayi % i == 0) {
+                asalmi = false;
+                break;
+            }
+        }
+        return asalmi;
+    }
+
+    public static int BasamakToplami(int sayi) {
+        int basTop = 0;
+        for (int i = 10; sayi >= 1; ) {
+            basTop += sayi % i;
+            sayi /= 10;
+        }
+        return basTop;
+    }
+    public static int AsalCarpanlarRakamlariToplami(int sayi){
+        List<Integer> asalCarpanlar=new ArrayList<Integer>();
+        List<Integer> asalBolenler = new ArrayList<Integer>();
+        for(int i = 2;i<=sayi;i++){
+            if(AsalMi(i))  asalBolenler.add(i);
+        }
+        for (int i = 0,gecici = sayi; i < asalBolenler.size(); i++) {
+            if(gecici%asalBolenler.get(i)==0){
+                gecici /=asalBolenler.get(i);
+                asalCarpanlar.add(asalBolenler.get(i));
+                i--;
+            }
+        }
+        int asalCarpanRakamlariToplami =0;
+        for (int i = 0; i < asalCarpanlar.size(); i++) {
+            asalCarpanRakamlariToplami += BasamakToplami(asalCarpanlar.get(i));
+        }
+        return asalCarpanRakamlariToplami;
+    }

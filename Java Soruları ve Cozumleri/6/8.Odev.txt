@@ -1,0 +1,108 @@
+//Test etmek için soru ile ilgili main fonksiyonu içerisindeki slashları(/) silebilirsiniz.
+//Altta yer alan tüm kodları main class(Main.java) içeriğiyle değiştirmeniz gerek(sadece "package com.xxx "  paket adını içeren satırı silmeyin.).
+
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        //System.out.println(BuyukUnluUyumunaUyarmi("Marabacı").toString());//1.soru
+        //EnUzunKelimeBul x = new EnUzunKelimeBul();//2.soru
+        //EnUzunKelimeBul.KelimeVeUzunluk snc = x.EnUzunKelimeBul();//2.soru
+        //System.out.println(snc.kelime+snc.uzunluk);//2.soru
+        //OHIleBitiyormu(new String[]{"KOH", "H2O2", "NaCl", "NaOH", "COH804", "MgOH"});/3.soru
+        //String cumle = "Bugün Hava Çok Güzel. Deniz, Kumsal Ve Güneş Muhteşem Olacak.";//4.soru
+        //System.out.println(KacSesliHarfVar(cumle));//4.soru
+        //String cumle = "Veli ve Vedat eve gelmedi";//5.soru
+        //System.out.println(KacVeVar(cumle));//5.soru
+        //String cumle = "Bugün hava çok güzel";//6.soru
+        //System.out.println(AltinciSoru(cumle));//6.soru
+    }
+
+    static Boolean BuyukUnluUyumunaUyarmi(String kelime) {//1.soru
+        char[] kalinSesliler = {'a', 'ı', 'o', 'u', 'A', 'I', 'O', 'U'};
+        char[] inceSesliler = {'e', 'i', 'ö', 'ü', 'E', 'İ', 'Ö', 'Ü'};
+        boolean kalinVarmi = false;
+        boolean inceVarmi = false;
+        for (int i = 0; i < kelime.length(); i++) {
+            if (!kalinVarmi) {
+                for (int j = 0; j < kalinSesliler.length; j++) {
+                    if (kalinSesliler[j] == kelime.charAt(i)) kalinVarmi = true;
+                }
+            }
+            if (!inceVarmi) {
+                for (int j = 0; j < inceSesliler.length; j++) {
+                    if (inceSesliler[j] == kelime.charAt(i)) inceVarmi = true;
+                }
+            }
+            if (kalinVarmi == true & inceVarmi == true) break;
+        }
+        if (kalinVarmi == true & inceVarmi == true) return false;
+        else return true;
+    }
+
+    static void OHIleBitiyormu(String[] list) {//3.soru
+        for (int i = 0; i < list.length; i++) {
+            if (list[i].substring(list[i].length() - 2, list[i].length()).equals("OH"))
+                System.out.println(list[i] + ", OH ile bitiyor");
+            else System.out.println(list[i] + ", OH ile bitmiyor.");
+        }
+    }
+
+    static int KacSesliHarfVar(String cumle) {//4.soru
+        List<Character> sesliHarfler;
+        Character[] gcc = {'a', 'ı', 'o', 'u', 'A', 'I', 'O', 'U', 'e', 'i', 'ö', 'ü', 'E', 'İ', 'Ö', 'Ü'};
+        sesliHarfler = Arrays.asList(gcc);
+        int sesliHarfSayisi = 0;
+        for (int i = 0; i < cumle.length(); i++) {
+            if (sesliHarfler.contains(cumle.charAt(i))) sesliHarfSayisi++;
+        }
+        return sesliHarfSayisi;
+    }
+
+    static int KacVeVar(String cumle) {//5.soru
+        int veAdedi = 0;
+        for (int i = 0; i < cumle.length() - 1; i++) {
+            if (cumle.substring(i, i + 2).toLowerCase().equals("ve")) veAdedi++;
+        }
+        return veAdedi;
+    }
+
+    static String AltinciSoru(String cumle) {//6.soru
+        String sonuc = "";
+        for (int i = 0; i < cumle.length(); i += 3) {
+            if (i < cumle.length()) {
+                sonuc += cumle.charAt(i);
+            }
+        }
+        return sonuc;
+    }
+}
+class EnUzunKelimeBul {//2.soru
+    static class KelimeVeUzunluk {
+        String kelime;
+        String uzunluk;
+    }
+
+    KelimeVeUzunluk EnUzunKelimeBul() {
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Cümle giriniz : ");
+        String cumle = scn.nextLine();
+        KelimeVeUzunluk snc = new KelimeVeUzunluk();
+        String[] kelimeler = cumle.trim().split(" ");
+        String enUzunKelime = "";
+        int enUzunKelimeUzunlugu = 0;
+        for (int i = 0; i < kelimeler.length; i++) {
+            if (kelimeler[i].trim().length() > enUzunKelimeUzunlugu) {
+                enUzunKelime = kelimeler[i].trim();
+                enUzunKelimeUzunlugu = enUzunKelime.length();
+            }
+        }
+        snc.kelime = "En Uzun Kelime : " + enUzunKelime + "\n";
+        snc.uzunluk = "Uzunluk : " + enUzunKelimeUzunlugu;
+        return snc;
+    }
+}

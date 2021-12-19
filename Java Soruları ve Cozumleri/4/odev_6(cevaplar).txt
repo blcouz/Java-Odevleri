@@ -1,0 +1,345 @@
+1. soru çok şüpheli
+
+1>> 
+
+public static void main(String[] args) {
+        Yigin yigin = new Yigin();
+        yigin.setYiginBoyutu(10);
+        Kuyruk kuyruk = new Kuyruk();
+        kuyruk.boyutVer(10);
+
+        yigin.push(6);
+        yigin.push(4);
+        yigin.push(5);
+        yigin.push(2);
+        yigin.push(8);
+        yigin.ElemanlariYaz();
+        yigin.pop();
+        yigin.ElemanlariYaz();
+        yigin.push(9);
+        yigin.push(3);
+        yigin.ElemanlariYaz();
+        yigin.pop();
+        yigin.ElemanlariYaz();
+        yigin.cikisSirasiylaYaz();
+        int[] yiginElemanlari = yigin.elemanlariCek();
+        for (int i = 0; i < yigin.elemanlariCek().length; i++) {
+
+            kuyruk.push(yiginElemanlari[i]);
+        }
+        kuyruk.cikisSirasinaGoreYaz();
+        kuyruk.pop();
+        kuyruk.elemanlariYaz();
+        kuyruk.push(5);
+        kuyruk.push(1);
+        kuyruk.elemanlariYaz();
+        kuyruk.cikisSirasinaGoreYaz();
+
+    }
+    static class Kuyruk{
+        int queueBoyutu = 10;
+        int[] kuyruk;
+        int Top = -1;
+        boolean boyutVerildimi = false;
+        void kontrol(){
+            if(!boyutVerildimi){
+                kuyruk = new int[queueBoyutu];
+                boyutVerildimi = true;
+            }
+        }
+        void boyutVer(int queueBoyutu){
+            if(!boyutVerildimi){
+                boyutVerildimi = true;
+                kuyruk = new int[queueBoyutu];
+            }
+        }
+        void push(int sayi){
+            kontrol();
+            if(Top !=kuyruk.length-1){
+
+                kuyruk[Top+1] = sayi;
+                Top++;
+            }
+        }
+        void pop(){
+            kontrol();
+            if(Top !=-1) {
+                for (int i = 1; i <= Top; i++) {
+                    kuyruk[i - 1] = kuyruk[i];
+                }
+                Top--;
+            }
+            System.out.println();
+        }
+        void cikisSirasinaGoreYaz(){
+            kontrol();
+            System.out.println();
+            System.out.println();
+            System.out.println("**********************");
+            for (int i = 0; i <= Top; i++) {
+                System.out.print(kuyruk[i]+" " );
+            }
+        }
+        void elemanlariYaz(){
+            kontrol();
+            System.out.println();
+            System.out.println();
+            System.out.println("**********************");
+            for (int i = 0; i <= Top; i++) {
+                System.out.print(kuyruk[i] +" ");
+            }
+        }
+
+
+    }
+    static class Yigin {
+        int yiginBoyutu = 10;
+        int[] yigin;
+        int Top = -1;
+        Boolean yeniBoyutVerildimi = false;
+        void setYiginBoyutu (int yeniBoyut){
+            if(!yeniBoyutVerildimi) {
+                yigin = new int[yeniBoyut];
+                yeniBoyutVerildimi = true;
+            }
+        }
+        boolean isEmpty(){
+            kontrol();
+            if(Top == -1) return true;
+            else  return false;
+        }
+        void push (int sayi){
+            kontrol();
+            if(Top != yigin.length -1){
+                yigin[Top+1] = sayi;
+                Top++;
+            }
+        }
+        void pop(){
+            Top--;
+        }
+        void peek(){
+            kontrol();
+            System.out.println(yigin[Top+1]);
+        }
+        void kontrol(){
+            if(!yeniBoyutVerildimi){
+                yigin = new int[yiginBoyutu];
+                yeniBoyutVerildimi = true;
+            }
+        }
+        void ElemanlariYaz(){
+            System.out.println();
+            for (int i = 0; i < Top+1; i++) {
+                System.out.print(yigin[i]+" ");
+            }
+            System.out.println();
+            System.out.println("-----------------------");
+        }
+        void cikisSirasiylaYaz (){
+            for (int i = Top; i >=0 ; i--) {
+                System.out.print(yigin[i]+" ");
+            }
+        }
+        int[] elemanlariCek(){
+            kontrol();
+            int[] elemanlar = new int[Top+1];
+            for (int i = 0; i <Top+1 ; i++) {
+                elemanlar[i] = yigin[Top-i];
+            }
+            return elemanlar;
+        }
+
+
+
+
+    }
+
+
+2 >> 
+
+Scanner scn = new Scanner(System.in);
+        System.out.print(" Cümle Giriniz : ");
+        System.out.println();
+        String cumle = scn.nextLine();
+        cumle = cumle.trim();
+        List<Character> cumleHarfleri = new ArrayList<>();
+        for (int i = 0; i < cumle.length(); i++) {
+            cumleHarfleri.add(cumle.charAt(i));
+        }
+        for (int i = 0; i < cumleHarfleri.size(); i++) {
+            if(cumleHarfleri.get(i).toString().toLowerCase(Locale.ROOT).equals(cumleHarfleri.get(i+1).toString().toLowerCase(Locale.ROOT))) {
+                cumleHarfleri.remove(i);
+                cumleHarfleri.remove(i);
+                i--;
+                //boşlukların silinmemesi gerekiyormu tam bilemedim program şuan çift boşluk gördüğündede silecektir.
+            }
+        }
+        cumle ="";
+        for (int i = 0; i < cumleHarfleri.size(); i++) {
+            cumle += cumleHarfleri.get(i).charValue();
+        }
+        System.out.println(cumle);
+
+
+3 >> 
+
+System.out.println("Kelime yaz entera bas ve ikinci kez kelime yaz ve enterla(İki kelimede aynı uzunlukta olmalı).");
+        Scanner scanner = new Scanner(System.in);
+        String ilkKelime = scanner.nextLine();
+        String ikiKelime = scanner.nextLine();
+        if(ikiKelime.length()==ilkKelime.length()){
+            int ayniHarflerToplami =0;
+            for (int i = 0; i < ilkKelime.length(); i++) {
+                if(Character.toString(ikiKelime.charAt(i)).toLowerCase(Locale.ROOT).equals(Character.toString(ilkKelime.charAt(i)).toLowerCase(Locale.ROOT)) ) ayniHarflerToplami++;
+            }
+            System.out.println("Benzerlik Oranı  = %"+String.format("%.1f",(double)ayniHarflerToplami/ikiKelime.length()*100));
+        }
+        else {
+            System.out.println("Hatalı giriş");
+        }
+
+
+4 >>
+
+public static void main(String[] args) {
+        String kelime = "Oğuzhan Balcı";
+        System.out.println(KelimeyiTersDondur(kelime,kelime.length()-1));
+    }
+    public static String  KelimeyiTersDondur (String kelime,int indis){
+        if(indis <0) return "";
+        else {
+            return kelime.charAt(indis) +""+ KelimeyiTersDondur(kelime,indis-1);
+        }
+
+    }
+
+
+5 >> 
+
+//Bizden benzersiz karakterler isteniyor.
+        //Bu soruda ben büyük küçük harfleri aynı sayarak yapıyorum.
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Kelime giriniz : ");
+        String kelime = scn.nextLine();
+        List<Character> benzersizler = new ArrayList<>();
+        boolean esiVarmi = false;
+        for (int i = 0; i < kelime.length(); i++) {
+            esiVarmi = false;
+            for (int j = 0; j < kelime.length(); j++) {
+                if((kelime.charAt(i) ==' ')) {
+                    esiVarmi = true;
+                    break;
+                }
+                else if (i != j) {
+                    if (((int) kelime.toLowerCase().charAt(i) == (int) kelime.toLowerCase().charAt(j))) {
+                        esiVarmi = true;
+                        break;
+                    }
+                }
+            }
+            if (esiVarmi) {
+                esiVarmi = false;
+            } else
+                benzersizler.add(kelime.charAt(i));
+
+        }
+
+        System.out.println("---Benzersiz Karakterlerin Listesi---");
+        System.out.println(benzersizler.toString());
+
+
+6 >>
+
+public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        System.out.print("İşlem giriniz. ");
+        String metin = scn.nextLine();
+        ParantezHatasiVarmi(metin);
+
+    }
+    public static Boolean ParantezHatasiVarmi(String metin){
+        Stack<Character> yigin = new Stack<>();
+        for (int i = 0; i < metin.length(); i++) {
+            Character harf = metin.charAt(i);
+            if( harf =='{'|harf =='}'|harf =='('|harf ==')'|harf =='['|harf ==']') {
+                if (yigin.isEmpty()) {
+                    yigin.push(harf);
+                } else {
+                    if (yigin.peek() == '{') {
+                        if (harf == '}') yigin.pop();
+                        else yigin.push(harf);
+                    } else if (yigin.peek() == '(') {
+                        if (harf == ')') yigin.pop();
+                        else yigin.push(harf);
+                    } else if (yigin.peek() == '[') {
+                        if (harf == ']') yigin.pop();
+                        else yigin.push(harf);
+                    }
+                }
+            }
+        }
+        return yigin.isEmpty();
+    }
+
+
+
+7 >>
+
+//Romen rakamlarını tam çözemedim.
+for (int i = 1; i <=100 ; i++) {
+            String romenYazimi = "";
+            int sayi = i;
+            while (sayi>0){
+                if(sayi==100){
+                    romenYazimi+="C";
+                    sayi -=100;
+                }else if(sayi>=90){
+                    romenYazimi += "XC";
+                    sayi -= 90;
+                }
+                else if(sayi>=50){
+                    romenYazimi += "L";
+                    sayi -= 50;
+                }
+                else if(sayi>=40){
+                    romenYazimi += "XL";
+                    sayi -= 40;
+                }
+
+                else if(sayi>=10){
+                    romenYazimi += "X";
+                    sayi -=10;
+                }
+                else if(sayi==9) {
+                    romenYazimi += "IX";
+                    sayi -=9;
+                }
+                else if(sayi==8) {
+                    romenYazimi += "VIII";
+                    sayi -=8;
+                }
+                else if(sayi==7) {
+                    romenYazimi += "VII";
+                    sayi -=7;
+                }
+                else if(sayi==6) {
+                    romenYazimi += "VI";
+                    sayi -=6;
+                }
+                else if(sayi==5) {
+                    romenYazimi += "V";
+                    sayi -=5;
+                }
+                else if(sayi==4) {
+                    romenYazimi += "IV";
+                    sayi -=4;
+                }
+                else if(sayi<=3) {
+                    romenYazimi += "I";
+                    sayi -=1;
+                }
+
+            }
+            System.out.println(romenYazimi);
+        }
